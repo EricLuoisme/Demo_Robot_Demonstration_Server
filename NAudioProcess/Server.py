@@ -1,9 +1,12 @@
-
-# Echo server program
+# Communication server program
+from NAudioProcess.data import Network_Connection
 import socket
+import time
 
-HOST = '127.0.0.100'               # Symbolic name meaning all available interfaces
-PORT = 50007              # Arbitrary non-privileged port
+HOST = Network_Connection.HOST
+PORT = Network_Connection.PORT
+TIMEOUT = Network_Connection.SUBSCEN_MAXTIME
+
 s = None
 conn = None
 addr = None
@@ -14,9 +17,7 @@ def connect(send_it=False):
     used to connect
     :return: only when we connect successfully will stop this function and return True
     """
-
     global s, conn, addr
-    # while True:
     for res in socket.getaddrinfo(HOST, PORT, socket.AF_UNSPEC, socket.SOCK_STREAM):
         af, socktype, proto, canonname, sa = res
         try:
@@ -39,20 +40,28 @@ def connect(send_it=False):
     if s is not None:
         return True
 
-        # if s is None:
-        #     print('could not open socket')
-        #     sys.exit(1)
 
-
-def receive():
+def receive(sub_scenario=False):
     """
     used to get the message from the robot
     :return data: return the message that we get from the robot
     """
-    while True:
-        t = connect()
-        if t:
-            break
+    if sub_scenario:
+
+        start = time.perf_counter()
+        while time.perf_counter() - start < TIMEOUT:
+            t = connect()
+            if t:
+                break
+        if t is not True:
+            print('超时')
+            return '超时'
+
+    else:
+        while True:
+            t = connect()
+            if t:
+                break
 
     global s, conn, addr
     conn, addr = s.accept()

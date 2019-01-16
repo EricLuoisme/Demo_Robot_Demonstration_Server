@@ -20,10 +20,10 @@ def running():
     else:
         print('有误，是否查看错误原因')
         Server.send('进入该场景下的子场景')
-        receive = Server.receive()
-        if receive.__contain__('我不'):
-            print('好的，提前结束场景')
+        receive = Server.receive(True)
+        if receive.__contains__('超时') or receive.__contains__('我不'):
+            print('提前结束场景')
             Server.send('场景结束')
-        elif receive.__contain__('好'):
+        elif receive.__contains__('好'):
             print('执行查看操作')
             Server.send('执行查看操作，随后场景结束')
