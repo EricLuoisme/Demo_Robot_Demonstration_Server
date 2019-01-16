@@ -1,49 +1,29 @@
+import os
+from NAudioProcess.data import File_Setting
 from NAudioProcess import NMain_process
-import AutoWeb
 
 
+# 用于对存储的语音合成的mp3文件进行命名，由于在win10中覆盖音频文件权限不足
 FILE_NUMBER = 0
 
 
-def simple_checking(result):
+def determine_scenario(string):
     """
-    :param result:
-    :return: 执行脚本
+    函数接受 string 字符串并进行场景判断，最后调用 NAudioProcess.data 中的
+    :param string: robot端传输的字符串
+    :return: None
     """
-
     global FILE_NUMBER
-
-    string = str("小智同学")
-    state_now = NMain_process.identify_execute(string, FILE_NUMBER)
-
-    arouse = False
-    if state_now.type is 'Arousing':
-        arouse = True
-        print("唤醒成功")
-        state_now = NMain_process.identify_execute(result, FILE_NUMBER, arouse)
+    return_state = NMain_process.identify_execute(string, FILE_NUMBER, True)
+    if return_state is not None:
         FILE_NUMBER = FILE_NUMBER + 1
-        if state_now is not None:
-            arouse = False
 
 
-#########################
-AutoWeb.login()
+# real executing point #
 
-result = str("请制作一张提现凭证")
-simple_checking(result)
+if os.path.exists(File_Setting.outPath_Combin) is False:    # 判断是否存在路径，没有则创建
+    os.makedirs(File_Setting.outPath_Combin)
 
+string = str("请制作一张提现凭证")
+determine_scenario(string)
 
-# result = str("对本期完成的凭证进行提交处理")
-# simple_checking(result)
-# result = str("我要看看总账凭证提交的机器人是如何设置的")
-# simple_checking(result)
-# result = str("请对本期提交的凭证进行审核处理")
-# simple_checking(result)
-# result = str("我要看看总账凭证审核的机器人是如何设置的")###################
-# simple_checking(result)
-# result = str("请制作一张应收收款单")
-# simple_checking(result)
-# result = str("请对应收系统制作的收款单进行生成凭证处理")###################
-# simple_checking(result)
-# result = str("我要看看应收收款单凭证生成机器人是如何设置的")###############
-# simple_checking(result)

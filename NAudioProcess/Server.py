@@ -10,7 +10,7 @@ conn = None
 addr = None
 
 
-def getting_message():
+def receive():
     """
     used to get the message from the robot
     :return data: return the message that we get from the robot
@@ -47,7 +47,7 @@ def getting_message():
     return data
 
 
-def resenting_message(message):
+def send(message):
     """
     used to send message back to the robot
 
