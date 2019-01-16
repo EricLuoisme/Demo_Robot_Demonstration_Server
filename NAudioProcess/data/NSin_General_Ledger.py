@@ -78,8 +78,8 @@ def get_scenario(sce):
 
 def get_answer(sce):
     return {
-        'scenario_2': GL_3.running(), #'制作提现凭证',
-        'scenario_3': '对本期完成的凭证进行提交处理， 随后进入子场景',
+        'scenario_2': '制作提现凭证',
+        'scenario_3': GL_3.running(),   #'对本期完成的凭证进行提交处理， 随后进入子场景',
         'scenario_3_sub': '打开失败原因',
         'scenario_4': '查看金蝶软件（中国）有限公司的总账凭证提交是如何设置的',
         'scenario_5': '对本期提交的凭证进行审核处理， 随后进入子场景',

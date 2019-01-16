@@ -12,7 +12,7 @@ def do_script(result, num, FILE_NUMBER):
         # 在某个场景下，包含其关键词超过80%既认定为该场景
         print(NSin_General_Ledger.get_answer(sce))
         # 语音融合
-        Recognition_process.doing_voice_comb(NSin_General_Ledger.get_answer(sce), FILE_NUMBER)
+        # Recognition_process.doing_voice_comb(NSin_General_Ledger.get_answer(sce), FILE_NUMBER)
         return False
 
 

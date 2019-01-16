@@ -1,5 +1,6 @@
 
 from NAudioProcess import Server
+import time
 
 
 def running():
@@ -9,24 +10,20 @@ def running():
 
     :return: 不返回任何值
     """
-
-
     Server.send('财务凭证提交处理的机器人手部与口头操作')
     print('执行财务凭证提交处理') ## 判断是否成功执行操作 ##
-    check = False
+    check = True
 
     if check is False:
         print('全部凭证提交结束')
-        Server.receive('场景结束')
+        Server.send('场景结束')
     else:
         print('有误，是否查看错误原因')
         Server.send('进入该场景下的子场景')
-
         receive = Server.receive()
-
-        if receive is False:
+        if receive.__contain__('我不'):
             print('好的，提前结束场景')
             Server.send('场景结束')
-        else:
+        elif receive.__contain__('好'):
             print('执行查看操作')
             Server.send('执行查看操作，随后场景结束')

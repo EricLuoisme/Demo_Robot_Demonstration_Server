@@ -1,6 +1,6 @@
 import os
 from NAudioProcess.data import File_Setting
-from NAudioProcess import NMain_process
+from NAudioProcess import NMain_process, Server
 
 
 # 用于对存储的语音合成的mp3文件进行命名，由于在win10中覆盖音频文件权限不足
@@ -18,12 +18,13 @@ def determine_scenario(string):
     if return_state is not None:
         FILE_NUMBER = FILE_NUMBER + 1
 
+##########################################################################################
 
 # real executing point #
-
 if os.path.exists(File_Setting.outPath_Combin) is False:    # 判断是否存在路径，没有则创建
     os.makedirs(File_Setting.outPath_Combin)
 
-string = str("请制作一张提现凭证")
+# string = str("对本期完成的凭证进行提交处理")
+string = Server.receive()
 determine_scenario(string)
 
