@@ -20,7 +20,9 @@ def running():
     else:
         print('有误，是否查看错误原因')
         Server.send('进入该场景下的子场景')
+
         receive = Server.receive(True)
+
         if receive.__contains__('超时') or receive.__contains__('我不'):
             print('提前结束场景')
             Server.send('场景结束')
